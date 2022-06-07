@@ -1,3 +1,7 @@
+# WRITTEN BY ATHUL NANDASWAROOP
+# A PROGRAM TO BULK CALL PAGINATEG APIS CONCURRENTLY USING MUTITHREADING ALONG WITH 
+# A COMPARISON VS SINGLE THREADED EXECUTION MODE BY COMPARING EXECUtION TIME OF BOTH
+
 from concurrent.futures import ThreadPoolExecutor, wait
 from typing import List
 
@@ -7,19 +11,19 @@ import time
 
 BASE_URL: str = 'https://jsonmock.hackerrank.com/api/transactions/search'
 
-workers: int = 20
+workers: int = 20 # MAX THREADS LIMIT
 
 
-# def setParams(page, txnType): return {'txnType': txnType, 'page': page}
-setParams = lambda page, txnType : {'txnType': txnType, 'page': page}
+# def setParams(page, txnType): return {'txnType': txnType, 'page': page}# pep8 SUGGEST THIS SYNTAX OVER lambdas
+setParams = lambda page, txnType : {'txnType': txnType, 'page': page} #SETTING PATH PARAMS OF API REQUEST
 
 
-def fetch(session, url, params):
+def fetch(session, url, params): # TO FETCH API
     with session.get(url, params=params) as response:
         return response.json()
 
 
-def preFetch(executor, session):
+def preFetch(executor, session): # TO GET TOTAL NUMBER OF PAGES TO IDENTIFY NUMBER OF TOTAL REQUESTS TO BE PERFORMED
 
     cred = executor.submit(fetch, session, BASE_URL,
                            setParams(txnType='CREDIT', page=1))
@@ -33,7 +37,7 @@ def preFetch(executor, session):
     wait((cred, deb))
 
 
-def main():
+def main(): # MAIN FUNCTIONALITY IMPLEMENTATION
 
     with ThreadPoolExecutor(max_workers=workers) as executor:
 
@@ -109,7 +113,7 @@ print(
 print("\nWaiting for Single threaded mode's results  . . .")
 
 sync_time = time.time()
-for i in range(0, credit_pages+debit_pages):
+for i in range(0, credit_pages+debit_pages): # CALLING APIS IN SINGLE THREADED MODE
     requests.get(BASE_URL)
 
 stime = time.time()-sync_time
