@@ -10,7 +10,8 @@ BASE_URL: str = 'https://jsonmock.hackerrank.com/api/transactions/search'
 workers: int = 20
 
 
-def setParams(page, txnType): return {'txnType': txnType, 'page': page}
+# def setParams(page, txnType): return {'txnType': txnType, 'page': page}
+setParams = lambda page, txnType : {'txnType': txnType, 'page': page}
 
 
 def fetch(session, url, params):
