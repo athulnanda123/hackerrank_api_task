@@ -3,8 +3,6 @@
 # A COMPARISON VS SINGLE THREADED EXECUTION MODE BY COMPARING EXECUtION TIME OF BOTH
 
 from concurrent.futures import ThreadPoolExecutor, wait
-from typing import List
-
 import requests
 import time
 
